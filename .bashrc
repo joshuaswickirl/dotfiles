@@ -1,16 +1,11 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-
-# Alias definitions
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias ls='ls --color=auto'
-
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# No brainer, default to Vim
 export EDITOR="vim"
 
 function parse_git_branch() {
@@ -23,8 +18,6 @@ function parse_git_branch() {
     echo ""
   fi
 }
-
-# get current status of git repo
 function parse_git_dirty {
   status=`git status 2>&1 | tee`
   dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
@@ -58,12 +51,7 @@ function parse_git_dirty {
     echo ""
   fi
 }
-
 export PS1="\[\e[38;5;129m\]\W\[\e[m\]\[\e[38;5;202m\]\`parse_git_branch\`\[\e[m\] $ "
 
 
-# Path
 export PATH=$PATH:/usr/local/go/bin
-
-# Vault address
-export VAULT_ADDR=https://vault.hds.colostate.edu
