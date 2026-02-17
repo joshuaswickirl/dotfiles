@@ -2,7 +2,8 @@
 # Sourced by both ~/.bashrc and ~/.zshrc
 
 # ── Editor ──────────────────────────────────────────────────────────
-export EDITOR="vim"
+alias vim='nvim'
+export EDITOR="nvim"
 
 # ── OS Detection ────────────────────────────────────────────────────
 case "$(uname -s)" in
