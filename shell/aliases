@@ -1,0 +1,79 @@
+# shell/aliases.sh — shared shell configuration
+# Sourced by both ~/.bashrc and ~/.zshrc
+
+# ── Editor ──────────────────────────────────────────────────────────
+export EDITOR="vim"
+
+# ── OS Detection ────────────────────────────────────────────────────
+case "$(uname -s)" in
+  Darwin) alias ls='ls -G' ;;
+  *)      alias ls='ls --color=auto' ;;
+esac
+
+# ── File listing ────────────────────────────────────────────────────
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# ── Grep ────────────────────────────────────────────────────────────
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# ── Navigation ──────────────────────────────────────────────────────
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# ── Git shortcuts ───────────────────────────────────────────────────
+alias gs='git status'
+alias gd='git diff'
+alias gc='git commit'
+alias gl='git log --oneline -20'
+alias ga='git add'
+alias gp='git push'
+alias gpl='git pull'
+alias gco='git checkout'
+alias gb='git branch'
+
+# ── Git prompt (skip if oh-my-zsh provides its own) ─────────────────
+if [ -z "$ZSH" ]; then
+  function parse_git_branch() {
+    BRANCH=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+    if [ -n "${BRANCH}" ]; then
+      STAT=$(parse_git_dirty)
+      echo "[${BRANCH}${STAT}]"
+    else
+      echo ""
+    fi
+  }
+
+  function parse_git_dirty() {
+    git_status=$(git status 2>&1 | tee)
+    dirty=$(echo -n "${git_status}" 2>/dev/null | grep "modified:" &>/dev/null; echo "$?")
+    untracked=$(echo -n "${git_status}" 2>/dev/null | grep "Untracked files" &>/dev/null; echo "$?")
+    ahead=$(echo -n "${git_status}" 2>/dev/null | grep "Your branch is ahead of" &>/dev/null; echo "$?")
+    newfile=$(echo -n "${git_status}" 2>/dev/null | grep "new file:" &>/dev/null; echo "$?")
+    renamed=$(echo -n "${git_status}" 2>/dev/null | grep "renamed:" &>/dev/null; echo "$?")
+    deleted=$(echo -n "${git_status}" 2>/dev/null | grep "deleted:" &>/dev/null; echo "$?")
+    bits=''
+    if [ "${renamed}" == "0" ]; then bits=">${bits}"; fi
+    if [ "${ahead}" == "0" ]; then bits="*${bits}"; fi
+    if [ "${newfile}" == "0" ]; then bits="+${bits}"; fi
+    if [ "${untracked}" == "0" ]; then bits="?${bits}"; fi
+    if [ "${deleted}" == "0" ]; then bits="x${bits}"; fi
+    if [ "${dirty}" == "0" ]; then bits="!${bits}"; fi
+    if [ -n "${bits}" ]; then
+      echo " ${bits}"
+    else
+      echo ""
+    fi
+  }
+
+  # ── Prompt ──────────────────────────────────────────────────────────
+  if [ -n "$ZSH_VERSION" ]; then
+    setopt PROMPT_SUBST
+    export PS1='%F{129}%1~%f%F{202}$(parse_git_branch)%f $ '
+  else
+    export PS1='\[\e[38;5;129m\]\W\[\e[m\]\[\e[38;5;202m\]$(parse_git_branch)\[\e[m\] $ '
+  fi
+fi
