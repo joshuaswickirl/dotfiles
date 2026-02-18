@@ -70,14 +70,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- ── Plugins ────────────────────────────────────────────────────────
 require("lazy").setup({
-  -- Colorscheme
-  {
-    "folke/tokyonight.nvim",
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme("tokyonight-night")
-    end,
-  },
 
   -- Fuzzy finder
   {
@@ -155,6 +147,26 @@ require("lazy").setup({
   {
     "echasnovski/mini.nvim",
     config = function()
+      require("mini.base16").setup({
+        palette = {
+          base00 = "#242424", -- background
+          base01 = "#2e2e2e", -- lighter bg (status bars, line numbers)
+          base02 = "#3a3a3a", -- selection
+          base03 = "#524e45", -- comments
+          base04 = "#a0a0a0", -- dark foreground (status bars)
+          base05 = "#e8e8e8", -- foreground
+          base06 = "#f7f6f3", -- light foreground
+          base07 = "#fff8e7", -- lightest (cosmic latte)
+          base08 = "#e83b35", -- red (variables, tags)
+          base09 = "#ed935f", -- orange (constants, booleans)
+          base0A = "#edc25f", -- yellow (classes, search)
+          base0B = "#22bd5b", -- green (strings)
+          base0C = "#35b2e8", -- cyan (regex, escape chars)
+          base0D = "#356be8", -- blue (functions)
+          base0E = "#7735e8", -- violet (keywords)
+          base0F = "#e87735", -- orange (embedded tags)
+        },
+      })
       require("mini.ai").setup({ n_lines = 500 })
       require("mini.surround").setup()
       require("mini.statusline").setup()
