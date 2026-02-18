@@ -125,14 +125,12 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "bash", "lua", "python", "vim", "vimdoc", "markdown", "json", "yaml" },
-        auto_install = false,
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
-    end,
+    opts = {
+      ensure_installed = { "bash", "lua", "python", "vim", "vimdoc", "markdown", "json", "yaml" },
+      auto_install = false,
+      highlight = { enable = true },
+      indent = { enable = true },
+    },
   },
 
   -- Git signs
