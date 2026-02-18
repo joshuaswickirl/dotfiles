@@ -45,6 +45,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+-- ── Compat shim (Telescope uses removed Treesitter API) ───────────
+if not vim.treesitter.language.ft_to_lang then
+  vim.treesitter.language.ft_to_lang = vim.treesitter.language.get_lang
+end
+
 -- ── Bootstrap lazy.nvim ────────────────────────────────────────────
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
