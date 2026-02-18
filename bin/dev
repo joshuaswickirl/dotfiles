@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Launch dev tmux layout:
+#   ┌──────────┬──────────┐
+#   │  nvim    │          │
+#   │          │  shell   │
+#   ├──────────┤          │
+#   │  shell   │          │
+#   └──────────┴──────────┘
+
+SESSION="dev"
+
+# Attach if session already exists
+tmux has-session -t "$SESSION" 2>/dev/null && exec tmux attach -t "$SESSION"
+
+tmux new-session -d -s "$SESSION" -x "$(tput cols)" -y "$(tput lines)"
+
+# Split left | right (50%)
+tmux split-window -h -t "$SESSION"
+
+# Split left pane top | bottom (50%)
+tmux split-window -v -t "$SESSION:0.0"
+
+# Pane 0 (top-left): nvim
+tmux send-keys -t "$SESSION:0.0" 'nvim' Enter
+
+# Focus the right pane
+tmux select-pane -t "$SESSION:0.2"
+
+tmux attach -t "$SESSION"

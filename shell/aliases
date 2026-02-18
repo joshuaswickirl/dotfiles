@@ -1,6 +1,10 @@
 # shell/aliases.sh — shared shell configuration
 # Sourced by both ~/.bashrc and ~/.zshrc
 
+# ── Dotfiles bin ───────────────────────────────────────────────────
+DOTFILES_BIN="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/.." && pwd)/bin"
+export PATH="$DOTFILES_BIN:$PATH"
+
 # ── Editor ──────────────────────────────────────────────────────────
 alias vim='nvim'
 export EDITOR="nvim"
