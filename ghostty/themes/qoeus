@@ -1,0 +1,37 @@
+background = #242424
+foreground = #e8e8e8
+cursor-color = #ed935f
+selection-background = #3a3a3a
+selection-foreground = #e8e8e8
+
+# Black
+palette = 0=#1a1a1a
+palette = 8=#524e45
+
+# Red
+palette = 1=#e83b35
+palette = 9=#ed645f
+
+# Green
+palette = 2=#22bd5b
+palette = 10=#5fe893
+
+# Yellow (orange-tinted to match accent)
+palette = 3=#e87735
+palette = 11=#edc25f
+
+# Blue
+palette = 4=#356be8
+palette = 12=#5f8aed
+
+# Magenta
+palette = 5=#7735e8
+palette = 13=#935fed
+
+# Cyan
+palette = 6=#35b2e8
+palette = 14=#5fc8ed
+
+# White
+palette = 7=#d9d6d0
+palette = 15=#f7f6f3

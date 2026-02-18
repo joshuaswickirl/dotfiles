@@ -60,6 +60,8 @@ if [ "$(uname -s)" = "Darwin" ]; then
   GHOSTTY_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
   mkdir -p "$GHOSTTY_DIR"
   create_symlink "$DOTFILES_DIR/ghostty/config" "$GHOSTTY_DIR/config"
+  mkdir -p "$HOME/.config/ghostty"
+  create_symlink "$DOTFILES_DIR/ghostty/themes" "$HOME/.config/ghostty/themes"
 fi
 echo ""
 
