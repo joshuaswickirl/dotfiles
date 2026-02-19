@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# ss — screenshot clipboard to agent VM for Claude Code
+set -euo pipefail
+
+VM_USER="ubuntu"
+VM_HOST="agent.lab"
+VM_DIR="/tmp/screenshots"
+
+f="screenshot-$(date +%s).png"
+local_path="/tmp/$f"
+remote_path="$VM_DIR/$f"
+
+pngpaste "$local_path"
+ssh "$VM_USER@$VM_HOST" "mkdir -p $VM_DIR"
+scp -q "$local_path" "$VM_USER@$VM_HOST:$remote_path"
+rm "$local_path"
+echo "$remote_path"
