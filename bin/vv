@@ -3,7 +3,7 @@
 set -euo pipefail
 
 VM_USER="ubuntu"
-VM_HOST="agent.lab"
+VM_HOST="agent.ql"
 VM_DIR="/tmp/screenshots"
 
 f="screenshot-$(date +%s).png"
