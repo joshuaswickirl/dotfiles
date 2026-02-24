@@ -140,6 +140,11 @@ require("lazy").setup({
         topdelete = { text = "-" },
         changedelete = { text = "~" },
       },
+      on_attach = function(bufnr)
+        local gs = require("gitsigns")
+        vim.keymap.set("n", "]c", gs.next_hunk, { buffer = bufnr, desc = "Next hunk" })
+        vim.keymap.set("n", "[c", gs.prev_hunk, { buffer = bufnr, desc = "Previous hunk" })
+      end,
     },
   },
 
