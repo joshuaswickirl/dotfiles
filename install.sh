@@ -56,6 +56,11 @@ echo "Symlinks:"
 create_symlink "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 create_symlink "$DOTFILES_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
 create_symlink "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+mkdir -p "$HOME/.local/bin"
+for script in "$DOTFILES_DIR"/bin/*; do
+  [ -f "$script" ] || continue
+  create_symlink "$script" "$HOME/.local/bin/$(basename "$script")"
+done
 if [ "$(uname -s)" = "Darwin" ]; then
   GHOSTTY_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
   mkdir -p "$GHOSTTY_DIR"
