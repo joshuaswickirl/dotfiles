@@ -11,6 +11,17 @@ local_path="/tmp/$f"
 remote_path="$VM_DIR/$f"
 
 pngpaste "$local_path"
+
+# Reject macOS generic file-type icons (1024x1024, ~68KB)
+dims=$(sips -g pixelWidth -g pixelHeight "$local_path" 2>/dev/null | awk '/pixel/{print $2}')
+w=$(echo "$dims" | head -1)
+h=$(echo "$dims" | tail -1)
+if [[ "$w" == "1024" && "$h" == "1024" ]]; then
+  rm "$local_path"
+  echo "Error: clipboard has a file icon, not a screenshot. Use Cmd+Shift+Ctrl+4 to capture." >&2
+  exit 1
+fi
+
 ssh "$VM_USER@$VM_HOST" "mkdir -p $VM_DIR"
 scp -q "$local_path" "$VM_USER@$VM_HOST:$remote_path"
 rm "$local_path"
