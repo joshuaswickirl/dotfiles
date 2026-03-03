@@ -56,6 +56,9 @@ echo "Symlinks:"
 create_symlink "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 create_symlink "$DOTFILES_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
 create_symlink "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
+create_symlink "$DOTFILES_DIR/ssh/config" "$HOME/.ssh/config"
 mkdir -p "$HOME/.local/bin"
 for script in "$DOTFILES_DIR"/bin/*; do
   [ -f "$script" ] || continue
